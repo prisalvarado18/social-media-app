@@ -14,6 +14,9 @@ import postRoutes from './routes/posts.routes.js';
 import { register } from './controllers/auth.controller.js';
 import { createPost } from './controllers/posts.controller.js';
 import { verifyToken } from './middlewares/auth.js';
+import User from './models/user.model.js';
+import Post from './models/post.model.js';
+import {users, posts} from './data/index.js';
 
 // Configurations
 const __filename = fileURLToPath(import.meta.url);
