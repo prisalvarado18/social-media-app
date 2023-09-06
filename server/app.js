@@ -10,7 +10,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/users.routes.js';
+import postRoutes from './routes/posts.routes.js';
 import { register } from './controllers/auth.controller.js';
+import { createPost } from './controllers/posts.controller.js';
 import { verifyToken } from './middlewares/auth.js';
 
 // Configurations
@@ -39,8 +41,11 @@ const upload = multer({ storage });
 
 //Routes with files
 app.post('/auth/register', upload.single('picture'), verifyToken, register);
+app.post('/posts', verifyToken, upload.single('picture'), createPost);
+
 //Routes
 app.use('/auth', authRoutes);
-app.use("/users", userRoutes);
+app.use('/users', userRoutes);
+app.use('/posts', postRoutes);
 
 export default app;
