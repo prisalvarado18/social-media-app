@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
 	Box,
 	IconButton,
@@ -39,7 +39,7 @@ const Navbar = () => {
 	const primaryLight = theme.palette.primary.light;
 	const alt = theme.palette.background.alt;
 
-	const fullName = user ? `${user.firstName} ${user.lastName}`: 'guest';
+const fullName = user ? `${user.firstName} ${user.lastName}`: 'Guest';
 
 	return (
 		<FlexBetween padding="1rem 6%" backgroundColor={alt}>
