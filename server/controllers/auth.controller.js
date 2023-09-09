@@ -33,9 +33,22 @@ export const register = async (req, res) => {
 			impressions: Math.floor(Math.random() * 10000),
 		});
 		const savedUser = await newUser.save();
-		res.status(201).json(savedUser);
+		// res.status(201).json(savedUser);
+		const userWithoutPass = { ...savedUser._doc };
+		delete userWithoutPass.password;
+
+		res.status(201).json({
+			success: true,
+			data: userWithoutPass,
+			message: 'User registered successfully',
+		});
 	} catch (error) {
-		res.status(500).json({ error: error.message });
+		// res.status(500).json({ error: error.message });
+		res.status(500).json({
+			success: false,
+			message: 'Registration failed. Please try again later',
+			error: error.message,
+		});
 	}
 };
 
@@ -45,7 +58,7 @@ export const login = async (req, res) => {
 		const { email, password } = req.body;
 		const user = await User.findOne({ email: email });
 		if (!user)
-			return res.status(400).json({ message: 'USer does not exist' });
+			return res.status(400).json({ message: 'User does not exist' });
 
 		const isMatch = await bcrypt.compare(password, user.password);
 		if (!isMatch)

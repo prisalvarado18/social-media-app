@@ -10,7 +10,7 @@ export const verifyToken = async (req, res, next) => {
 		}
 
 		if (token.startsWith('Bearer')) {
-			token = token.slice(7, token.length).trimLeft();
+			token = token.slice(7);
 		}
 
 		const verified = jwt.verify(token, JWT_SECRET);

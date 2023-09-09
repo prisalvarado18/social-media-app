@@ -26,13 +26,13 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
-app.use(cors({
-    credentials: true
-}));
 app.use(morgan('common'));
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '30mb', extended: true }));
-
+app.use(cors({
+    credentials: true
+}));
+app.use('/assets', express.static(path.join(__dirname, 'public/assets')))
 // File Storage
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -44,6 +44,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+//app.use(express.static(path.join(__dirname, "assets")));
 
 //Routes with files
 app.post('/auth/register', upload.single('picture'), register);
